@@ -1,6 +1,6 @@
 .sidebar {
     position: absolute;
+    padding-left: 20px;
     left: 70%;
     width: 30%;
-    background: lightyellow;
     }
