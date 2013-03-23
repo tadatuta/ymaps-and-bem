@@ -47,12 +47,12 @@
                                     content: [
                                         { 
                                             elem: 'item',
-                                            placemarkId: 'group-1-2',
+                                            placemarkId: 'group-1-1',
                                             content: "«Рога и копыта» №2"
                                         },
                                         {
                                             elem: 'item',
-                                            placemarkId: 'group-1-3',
+                                            placemarkId: 'group-1-2',
                                             content: "«Рога и копыта» №3"
                                         },
                                         {
