@@ -36,89 +36,94 @@
                     content: [
                         {
                             block: 'menu',
-                            placemarksGroupId: 'group-1',
                             content: [
                                 { 
-                                    elem: 'title', 
-                                    content: 'Магазины с доставкой' 
-                                },
-                                { 
-                                    elem: 'content', 
+                                    block: 'menu',
+                                    placemarksGroupId: 'group-1',
                                     content: [
                                         { 
-                                            elem: 'item',
-                                            placemarkId: 'group-1-1',
-                                            content: "«Рога и копыта» №2"
+                                            elem: 'title', 
+                                            content: 'Магазины с доставкой' 
                                         },
-                                        {
-                                            elem: 'item',
-                                            placemarkId: 'group-1-2',
-                                            content: "«Рога и копыта» №3"
-                                        },
-                                        {
-                                            elem: 'item',
-                                            placemarkId: 'group-1-3',
-                                            content: "«Рога и копыта» №3"
+                                        { 
+                                            elem: 'content', 
+                                            content: [
+                                                { 
+                                                    elem: 'item',
+                                                    placemarkId: 'group-1-1',
+                                                    content: "«Рога и копыта» №2"
+                                                },
+                                                {
+                                                    elem: 'item',
+                                                    placemarkId: 'group-1-2',
+                                                    content: "«Рога и копыта» №3"
+                                                },
+                                                {
+                                                    elem: 'item',
+                                                    placemarkId: 'group-1-3',
+                                                    content: "«Рога и копыта» №3"
+                                                }
+                                            ]
                                         }
                                     ]
-                                }
-                            ]
-                        },
-                        {
-                            block: 'menu',
-                            placemarksGroupId: 'group-2',
-                            content: [
-                                {
-                                    elem: 'title',
-                                    content: 'Магазины с банковскими платежами'
-                                }, 
-                                {
-                                    elem: 'content',
-                                    content: [
-                                        {
-                                            elem: 'item',
-                                            placemarkId: 'group-2-1',
-                                            content: "«Рога и копыта» №1"
-                                        },
-                                        {
-                                            elem: 'item',
-                                            placemarkId: 'group-2-2',
-                                            content: "«Рога и копыта» №2"
-                                        },
-                                        {
-                                            elem: 'item',
-                                            placemarkId: 'group-2-3',
-                                            content: "«Рога и копыта» №3"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            block: 'menu',
-                            placemarksGroupId: 'group-3',
-                            content: [
-                                {
-                                    elem: 'title',
-                                    content: "Просто магазины"
                                 },
                                 {
-                                    elem: 'content',
+                                    block: 'menu',
+                                    placemarksGroupId: 'group-2',
                                     content: [
                                         {
-                                            elem: 'item',
-                                            placemarkId: 'group-3-1',
-                                            content: "«Рога и копыта» №1"
+                                            elem: 'title',
+                                            content: 'Магазины с банковскими платежами'
+                                        }, 
+                                        {
+                                            elem: 'content',
+                                            content: [
+                                                {
+                                                    elem: 'item',
+                                                    placemarkId: 'group-2-1',
+                                                    content: "«Рога и копыта» №1"
+                                                },
+                                                {
+                                                    elem: 'item',
+                                                    placemarkId: 'group-2-2',
+                                                    content: "«Рога и копыта» №2"
+                                                },
+                                                {
+                                                    elem: 'item',
+                                                    placemarkId: 'group-2-3',
+                                                    content: "«Рога и копыта» №3"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    block: 'menu',
+                                    placemarksGroupId: 'group-3',
+                                    content: [
+                                        {
+                                            elem: 'title',
+                                            content: "Просто магазины"
                                         },
                                         {
-                                            elem: 'item',
-                                            placemarkId: 'group-3-2',
-                                            content: "«Рога и копыта» №2"
-                                        },
-                                        {
-                                            elem: 'item',
-                                            placemarkId: 'group-3-3',
-                                            content: "«Рога и копыта» №3"
+                                            elem: 'content',
+                                            content: [
+                                                {
+                                                    elem: 'item',
+                                                    placemarkId: 'group-3-1',
+                                                    content: "«Рога и копыта» №1"
+                                                },
+                                                {
+                                                    elem: 'item',
+                                                    placemarkId: 'group-3-2',
+                                                    content: "«Рога и копыта» №2"
+                                                },
+                                                {
+                                                    elem: 'item',
+                                                    placemarkId: 'group-3-3',
+                                                    content: "«Рога и копыта» №3"
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
