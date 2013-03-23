@@ -52,7 +52,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
         this.initMap();
         // И говорим, чтобы API подгрузило вторую часть описаных нами пакетов. 
         ymaps.load(this.mapsPackages[1].join(','), function () {
-            // В конце сделаем выполним последние шаги. 
+            // Когда пакеты подгрузятся, выполним последние шаги. 
             this.continueInit();
         }, this);
     },
