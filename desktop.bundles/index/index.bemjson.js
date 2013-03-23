@@ -1,6 +1,6 @@
 ({
     block: 'b-page',
-    title: 'Карта магазинов ОАО «Рога и копыта»',
+    title: 'Карта магазинов группы компаний «Лёлика и Болика»',
     head: [
         { elem: 'css', url: '_index.css', ie: false },
         { block: 'i-jquery', elem: 'core' },
@@ -8,16 +8,15 @@
     ],
     content: [
         // Сначала описываем враппер, который будет оборачивать 
-        // наши блоки map и menu. 
+        // наши блоки map и sidebar. 
         // К нему примиксуем i-geo, чтобы можно было без труда 
-        // управляться с коммуникацией блоков
+        // управлять общением блоков
         {
             block: 'container',
             mix: [{ block: 'i-geo', js: true }],
             content: [
                 {
-                    // Блок карты, который автоматически добавляет АПИ Яндекс.Карт и 
-                    // инстанцирует карту в элемент с идентификатором myId.
+                    // Блок карты, который автоматически добавляет АПИ Яндекс.Карт. 
                     block: 'map',
                     mods: { 'api': 'ymaps' },
                     mix: [{ block: 'i-geo', elem: 'map' }],
@@ -26,53 +25,55 @@
                         'lang': 'ru-RU',
                         'center': [50.426472, 30.563022],
                         'zoom': 12,
-                        // Добавляем геообъекты на карту
+                        // Добавляем геообъекты на карту.
                         'geoObjects': [
                             { 
                                 collection: true,
                                 properties: {
                                     id: 'group-1',
-                                    name: 'Магазины с доставкой',
-                                    // Для нашего алгоритма
+                                    name: 'Рестораны, кафе',
+                                    // Нужно для нашего алгоритма переключения меток, 
+                                    // чтобы не путать с обычными метками, добавленными на карту.
                                     collection: true 
                                 },  
                                 preset: 'twirl#orangeIcon',     
                                 data: [ 
-                                    { coords: [50.426472, 30.563022], options: { id: 'group-1-1', balloonContent: 'Монумент &quot;Родина-Мать&quot;' } },
-                                    { coords: [50.45351, 30.516489], options: { id: 'group-1-2', balloonContent: 'Памятник &quot;Богдану Хмельницкому&quot;' } },
-                                    { coords: [50.454433, 30.529874], options: { id: 'group-1-3', balloonContent: 'Арка Дружбы народов' } },
+                                    { coords: [50.426472, 30.563022], options: { id: 'group-1-1', balloonContent: 'Бистро «Михалыч»' } },
+                                    { coords: [50.45351, 30.516489], options: { id: 'group-1-2', balloonContent: 'Кафе «Where I am?»' } },
+                                    { coords: [50.454433, 30.529874], options: { id: 'group-1-3', balloonContent: 'Ресторан «Жемчужина»' } },
                                 ]
                             },
                             {
                                 collection: true,
                                 properties: {
                                     id: 'group-2',
-                                    name: 'Магазины с банковскими платежами',
+                                    name: 'Салоны красоты',
                                     collection: true
                                 },
                                 preset: 'twirl#redIcon',
                                 data: [
-                                    { coords: [50.50955, 30.60791], options: { id: 'group-2-1', balloonContent: 'Ресторан &quot;Калинка-Малинка&quot;' } },
-                                    { coords: [50.429083, 30.521708], options: { id: 'group-2-2', balloonContent: 'Бар &quot;Сало-бар&quot;' } },
-                                    { coords: [50.450843, 30.498271], options: { id: 'group-2-3', balloonContent: 'Абсент-бар &quot;Палата №6&quot;' } },
+                                    { coords: [50.50955, 30.60791], options: { id: 'group-2-1', balloonContent: 'Cалон красоты «Роксана»' } },
+                                    { coords: [50.429083, 30.521708], options: { id: 'group-2-2', balloonContent: 'Салон красоты «Фьюче»' } },
+                                    { coords: [50.450843, 30.498271], options: { id: 'group-2-3', balloonContent: 'Салон красоты «Багира»' } },
                                 ]
                             },
                             {
                                 collection: true,
                                 properties: {
                                     id: 'group-3',
-                                    name: 'Просто магазины',
+                                    name: 'Отдых и развлечения',
                                     collection: true
                                 },
                                 preset: 'twirl#greenIcon',
                                 data: [
-                                    { coords: [50.443334, 30.520163], options: { id: 'group-3-1', balloonContent: 'Музей грамзаписи и старинных музыкальных инструментов' } },
-                                    { coords: [50.446977, 30.505269], options: { id: 'group-3-2', balloonContent: 'Музей истории медицины или Анатомический театр' } },
-                                    { coords: [50.452512, 30.530889], options: { id: 'group-3-3', balloonContent: 'Музей воды. Водно-информационный центр' } }
+                                    { coords: [50.443334, 30.520163], options: { id: 'group-3-1', balloonContent: 'Парк аттракционов «Лёлик и Болик»' } },
+                                    { coords: [50.446977, 30.505269], options: { id: 'group-3-2', balloonContent: 'Ночной клуб «Палата №6»' } },
+                                    { coords: [50.452512, 30.530889], options: { id: 'group-3-3', balloonContent: 'Ирланский паб' } }
                                 ]
                             }
                         ],
-                        // Устанавливать ли карте границы по наличия геообъектов. 
+                        // Устанавливать ли bounds карты по области, 
+                        // охватывающей все геообъекты.
                         'setupBoundsByGeoObjects': true
                     }
                 },
@@ -89,7 +90,7 @@
                                     content: [
                                         { 
                                             elem: 'title', 
-                                            content: 'Магазины с доставкой' 
+                                            content: 'Рестораны, кафе' 
                                         },
                                         { 
                                             elem: 'content', 
@@ -97,17 +98,17 @@
                                                 { 
                                                     elem: 'item',
                                                     placemarkId: 'group-1-1',
-                                                    content: "«Рога и копыта» №2"
+                                                    content: "Бистро «Михалыч»"
                                                 },
                                                 {
                                                     elem: 'item',
                                                     placemarkId: 'group-1-2',
-                                                    content: "«Рога и копыта» №3"
+                                                    content: "Кафе «Where I'm?»"
                                                 },
                                                 {
                                                     elem: 'item',
                                                     placemarkId: 'group-1-3',
-                                                    content: "«Рога и копыта» №3"
+                                                    content: "Ресторан «Жемчужина»"
                                                 }
                                             ]
                                         }
@@ -119,7 +120,7 @@
                                     content: [
                                         {
                                             elem: 'title',
-                                            content: 'Магазины с банковскими платежами'
+                                            content: 'Салоны красоты'
                                         }, 
                                         {
                                             elem: 'content',
@@ -127,17 +128,17 @@
                                                 {
                                                     elem: 'item',
                                                     placemarkId: 'group-2-1',
-                                                    content: "«Рога и копыта» №1"
+                                                    content: "Cалон красоты «Роксана»"
                                                 },
                                                 {
                                                     elem: 'item',
                                                     placemarkId: 'group-2-2',
-                                                    content: "«Рога и копыта» №2"
+                                                    content: "Салон красоты «Фьюче»"
                                                 },
                                                 {
                                                     elem: 'item',
                                                     placemarkId: 'group-2-3',
-                                                    content: "«Рога и копыта» №3"
+                                                    content: "Салон красоты «Багира»"
                                                 }
                                             ]
                                         }
@@ -149,7 +150,7 @@
                                     content: [
                                         {
                                             elem: 'title',
-                                            content: "Просто магазины"
+                                            content: "Отдых и развлечения"
                                         },
                                         {
                                             elem: 'content',
@@ -157,17 +158,17 @@
                                                 {
                                                     elem: 'item',
                                                     placemarkId: 'group-3-1',
-                                                    content: "«Рога и копыта» №1"
+                                                    content: "Парк аттракционов «Лёлик и Болик»"
                                                 },
                                                 {
                                                     elem: 'item',
                                                     placemarkId: 'group-3-2',
-                                                    content: "«Рога и копыта» №2"
+                                                    content: "Ночной глуб «Палата №6»"
                                                 },
                                                 {
                                                     elem: 'item',
                                                     placemarkId: 'group-3-3',
-                                                    content: "«Рога и копыта» №3"
+                                                    content: "Ирланский паб"
                                                 }
                                             ]
                                         }
