@@ -32,9 +32,6 @@ BEM.DOM.decl('menu', {
         }
     },
 
-    // Элемент, который был выбран последний раз.
-    lastSelected: null,
-
     onTriggerElemClick: function (e) { 
         e.preventDefault();
         var el = e.data.domElem;
@@ -54,15 +51,7 @@ BEM.DOM.decl('menu', {
         this.toggleMod(groupEl, 'state', 'fold')
         // Выделяем заголовок группы
         this.toggleMod(el, 'state', 'fold');
-    },
-
-    _lastItemToggleMod: function (elem) {
-        console.log(elem)
-        this.__base.apply(this, arguments);
-        this.lastSelected = elem;
-        this.delMod(this.lastSelected, 'state');
     }
-
 }, {
     live: function () {
         // Вешаем слушатель на клик.
