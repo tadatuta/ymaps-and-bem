@@ -1,4 +1,4 @@
-BEM.DOM.decl({ name: "map", modName: "api", modValue: "dynamic" }, {
+BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
 
     onSetMod : {
         'js' : function () {
