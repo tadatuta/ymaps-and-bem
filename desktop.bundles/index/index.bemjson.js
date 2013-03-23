@@ -36,7 +36,7 @@
                     content: [
                         {
                             block: 'menu',
-                            placemarkGroupId: 'group-1',
+                            placemarksGroupId: 'group-1',
                             content: [
                                 { 
                                     elem: 'title', 
@@ -66,7 +66,7 @@
                         },
                         {
                             block: 'menu',
-                            placemarkGroupId: 'group-2',
+                            placemarksGroupId: 'group-2',
                             content: [
                                 {
                                     elem: 'title',
@@ -96,7 +96,7 @@
                         },
                         {
                             block: 'menu',
-                            placemarkGroupId: 'group-3',
+                            placemarksGroupId: 'group-3',
                             content: [
                                 {
                                     elem: 'title',

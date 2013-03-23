@@ -17,7 +17,6 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
         [
             'package.full'
         ]
-
     ],
     /** 
      * Загрузчик API.
