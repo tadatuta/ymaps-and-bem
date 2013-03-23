@@ -34,7 +34,13 @@ BEM.DOM.decl('menu', {
         var el = e.data.domElem;
         console.log('clicked')
         // Сначала выключим у всех,
-        this.delMod(this.elem('item', 'state', 'active'), 'state');
+        console.log(this.findBlocksOutside({
+            block: 'menu',
+            elem: 'item',
+            modName: 'state',
+            modVal: 'active'
+        }))
+        // this.delMod(), 'state');
         // потом точечно включим тот, по которому нажали.
         this.toggleMod(el, 'state', 'active');
     },
