@@ -32,10 +32,10 @@
                 },
                 {
                     block: 'sidebar',
-                    mix: [{ block: 'i-geo', elem: 'menu' }],
                     content: [
                         {
                             block: 'menu',
+                            mix: [{ block: 'i-geo', elem: 'menu' }],
                             content: [
                                 { 
                                     block: 'menu',

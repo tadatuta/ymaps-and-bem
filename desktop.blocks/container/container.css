@@ -1,5 +1,8 @@
 .container {
     position: relative;
-    margin: 0 auto;
     width: 80%;
+    margin: 0 auto;
+    
+    font-family: "PT Sans", "Helvetica", sans-serif;
+    font-size: 15px; 
     }
