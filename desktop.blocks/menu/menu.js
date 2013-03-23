@@ -11,7 +11,7 @@ BEM.DOM.decl('menu', {
                     // заодно передаём важные параметры: элемент и его идентификатор метки. 
                     this.trigger('menuItemClick', {
                         domElem : elem,
-                        group: elem.data('group'),
+                        group: elem.data('group')
                     });
                 }
             }
@@ -19,7 +19,7 @@ BEM.DOM.decl('menu', {
         // и элемента content
         'content': {
             'state': {
-                'fold': function (elem, modName, modVal, groupId) {
+                'fold': function (elem, modName, modVal) {
                     this.trigger('menuGroupClick', {
                         domElem : elem,
                         group: elem.parent().data('group'),
@@ -29,19 +29,13 @@ BEM.DOM.decl('menu', {
         }
     },
 
+    // Элемент, который был выбран последний раз.
+    lastSelected: null,
+
     onTriggerElemClick: function (e) { 
         e.preventDefault();
         var el = e.data.domElem;
-        console.log('clicked')
-        // Сначала выключим у всех,
-        console.log(this.findBlocksOutside({
-            block: 'menu',
-            elem: 'item',
-            modName: 'state',
-            modVal: 'active'
-        }))
-        // this.delMod(), 'state');
-        // потом точечно включим тот, по которому нажали.
+        // потом точечно включим у того, по которому нажали.
         this.toggleMod(el, 'state', 'active');
     },
 
