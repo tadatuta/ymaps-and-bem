@@ -117,7 +117,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             .add('mapTools');
 
         // Блок поделится информацией о том, что он инициализировал карту. 
-        this.trigger('map-inited');
+        this.trigger('map-inited', { map: this.map });
     },
 
     /** 

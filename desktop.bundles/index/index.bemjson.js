@@ -13,14 +13,14 @@
         // управляться с коммуникацией блоков
         {
             block: 'container',
-            mix: [{ block: 'i-geo' }],
+            mix: [{ block: 'i-geo', js: true }],
             content: [
                 {
                     // Блок карты, который автоматически добавляет АПИ Яндекс.Карт и 
                     // инстанцирует карту в элемент с идентификатором myId.
                     block: 'map',
                     mods: { 'api': 'ymaps' },
-                    // mix: [{ block: 'i-geo', elem: 'map' }],
+                    mix: [{ block: 'i-geo', elem: 'map' }],
                     // Параметры для загрузки АПИ Яндекс.Карт.
                     js: {
                         'lang': 'ru-RU',
@@ -32,7 +32,9 @@
                                 collection: true,
                                 properties: {
                                     id: 'group-1',
-                                    name: 'Магазины с доставкой'
+                                    name: 'Магазины с доставкой',
+                                    // Для нашего алгоритма
+                                    collection: true 
                                 },  
                                 preset: 'twirl#orangeIcon',     
                                 data: [ 
@@ -45,7 +47,8 @@
                                 collection: true,
                                 properties: {
                                     id: 'group-2',
-                                    name: 'Магазины с банковскими платежами'
+                                    name: 'Магазины с банковскими платежами',
+                                    collection: true
                                 },
                                 preset: 'twirl#redIcon',
                                 data: [
@@ -58,7 +61,8 @@
                                 collection: true,
                                 properties: {
                                     id: 'group-3',
-                                    name: 'Просто магазины'
+                                    name: 'Просто магазины',
+                                    collection: true
                                 },
                                 preset: 'twirl#greenIcon',
                                 data: [

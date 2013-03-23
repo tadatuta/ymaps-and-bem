@@ -23,13 +23,11 @@ BEM.DOM.decl('menu', {
         },
         // и элемента content
         'content': {
-            'state': {
-                'fold': function (elem, modName, modVal) {
-                    this.trigger('menuGroupClick', {
-                        domElem : elem,
-                        group: elem.parent().data('group'),
-                    });
-                }
+            'state': function (elem, modName, modVal) {
+                this.trigger('menuGroupClick', {
+                    domElem : elem,
+                    group: elem.parent().data('group'),
+                });        
             }
         }
     },
