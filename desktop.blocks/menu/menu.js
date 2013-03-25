@@ -66,7 +66,7 @@ BEM.DOM.decl('menu', {
         this.on('menuItemClick', function (e, data) {
             // Педалька. 
             // Почему-то не срабатывает delMod.
-            this.lastSelected && this.lastSelected.removeClass('menu__item_state_active');
+            this.lastSelected && this.lastSelected.removeClass(this.buildSelector('item', 'state', 'active'));
             this.lastSelected = data.domElem;
         });
     }
