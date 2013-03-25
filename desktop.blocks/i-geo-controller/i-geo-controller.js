@@ -10,7 +10,8 @@ BEM.DOM.decl('i-geo-controller', {
                 block
                     .on('menuItemClick', this.onMenuItemClick, this)
                     .on('menuGroupClick', this.onMenuGroupClick, this);
-            }, this)
+            }, this);
+
         }
     },
 
