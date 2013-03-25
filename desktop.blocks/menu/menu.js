@@ -47,7 +47,6 @@ BEM.DOM.decl('menu', {
 
         // Сворачиваем группу.
         groupEl.slideToggle();
-        //  Говорим, что сворачиваем. 
         this.toggleMod(groupEl, 'state', 'fold')
         // Выделяем заголовок группы
         this.toggleMod(el, 'state', 'fold');
