@@ -1,4 +1,4 @@
-BEM.DOM.decl('i-geo', {
+BEM.DOM.decl('i-geo-controller', {
     onSetMod : {
         'js' : function () {
             // Слушаем состояние карты (нужно сделать надстройки).
@@ -42,7 +42,7 @@ BEM.DOM.decl('i-geo', {
             if (group.properties.get('collection') && group.properties.get('id') === id) {
                 this._hidden.add(group);
                 return;
-            }        
+            }
         }
 
         // Если мы сюда попали, значит коллекция уже удалена и надо искать в удаленных.
@@ -55,9 +55,9 @@ BEM.DOM.decl('i-geo', {
         }
     },
 
-    /** 
+    /**
      * Поиск нужной метки и открытие/закрыте её балуна.
-     * @param {String} id Идентификатор метки 
+     * @param {String} id Идентификатор метки.
      */
     itemToggle: function (id) {
         var it = this.map.geoObjects.getIterator(),
