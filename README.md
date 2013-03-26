@@ -1,109 +1,82 @@
-# Minimal setup to start a new [BEM](http://bem.info) project
+# API Яндекс.Карт и БЭМ
+## Введение
 
-This repository contains the *minimal* configuration-files and folders you will need to create a [BEM](http://bem.info) project from *scratch*.
+Один из самых частых кейсов использования API Яндекс.Карт — создание меню для показа на карте организаций различных типов (коллекций геообъектов). С помощью такого меню пользователь сайта может отобразить на карте только те объекты, которые его интересуют. Например, [вот так](http://dimik.github.com/ymaps/examples/group-menu/menu03.html). Но давайте реализуем этот пример с помощью методологии БЭМ!
+Первые шаги
+Создатели БЭМ позаботились о разработчиках и создали проект-скелет, который поможет начать разработку «с низкого старта». Начнем с него.
 
----
+''''bash
+    git clone https://github.com/bem/project-stub.git shopsList
+    cd shopsList
+    npm install
+''''
 
-## Installation Requirements:
+Теперь проект у нас на компьютере. Давайте протестируем, все ли работает. Для этого нужно перейти в папку, запустить make, подождать пока проект соберется и открыть в браузере страницу: [localhost:8080/desktop.bundles/index/index.html](http://localhost:8080/desktop.bundles/index/index.html)
+Перед глазами должно быть что-то вроде:
 
-- [node.js](http://nodejs.org/)
+<img src="http://zloylos.me/other/imgs/ymapsbem/project_stub.png" title="" alt="" border="0"/>
 
-You may also consider [installing bem-tools locally to your environment](http://bem.info/tools/bem/installation/) for [ease of use](#an-easier-more-beautiful-way), though it is **not required**
+Готово, можно переходить к следующему этапу.
 
----
+## Общее видение проекта
 
-## Installation:
+Нам нужно создать блок «map», в котором будет находиться карта, блок «sidebar» — правая или левая колонка, в которой будет находиться блок «menu», реализующий список организаций по категориям. Методология БЭМ подсказывает, что мы должны проектировать так, чтобы блоки не знали о существовании друг друга, поэтому нужно будет создать промежуточный блок, который будет принимать клики на меню и взаимодействовать с картой. Назовем его «i-geo-controller».
+Чтобы лучше понять зачем нужен промежуточный блок, как он работает и что такое «миксы», рекомендуем посмотреть рассказ Кира Белевича «Миксы во вселенной БЭМ» (http://events.yandex.ru/events/yasubbotnik/msk-sep-2012/talks/327/).
+Описание страницы, написание bemjson.
+Здесь всё просто. Мы изначально продумали структуру страницы, основные блоки и теперь осталось все это записать в json-подобном виде. Не буду вдаваться в подробности, вы всегда можете посмотреть исходный код. Структура страницы будет такой:
+b-page
+== container
+==== map
+==== sidebar
+====== menu
+======== menu
+========== items
+￼
+Более подробно можно посмотреть здесь: [desktop.bundles/index/index.bemjson.js](http://github.com/zloylos/ymaps-and-bem/desktop.bundles/index/index.bemjson.js)
 
-So, how easy is it to get started with BEM?  *Super easy*.
+## Блок map
 
-    It's as easy as...
-    
-    1 › git clone git://github.com/bem/project-stub.git
-    2 › cd project-stub
-    3 › make
+Давайте начнем разработку с главного блока — карты. Прежде всего нужно подключить API с необходимыми опциями. Можно было бы создать отдельный блок i-API, но, кажется, куда удобнее реализовать все это в рамках одного блока, используя модификаторы. Для блока map мы создадим модификатор «api», в котором для начала разместим значение — «ymaps».
+В примере мы будем использовать [динамический API](http://api.yandex.ru/maps/doc/jsapi/), но нужно помнить, что мы можем использовать и [Static API](http://api.yandex.ru/maps/doc/staticapi/). Это можно реализовать в рамках модификаторов.
+Для удобной работы с картой нам стоит продумать интерфейс добавления меток на карту без лишней головной боли. Для этого стоит сделать обработку поля: geoObjects, в котором будут храниться метки или коллекции. Для метки сделаем такой интерфейс:
 
-    (hint: execute the above commands in your terminal)
+''''js
+    {
+        coords: [] координаты метки,
+        properties: {} данные метки, 
+        options: {} опции метки
+    }
+''''
 
-Now that `bem server` is running, check it out:
+Для коллекции:
+''''js
+    {
+        collection: true, // флаг, указывающий, что это коллекция / группа меток, 
+        properties: {} свойства группы,
+        options: {} опции группы, 
+        data: [] — массив меток. 
+    }
+''''
+Это покрывает 90% всех кейсов.
 
-````
-Navigate to: http://localhost:8080/desktop.bundles/index/index.html
-````
+## Блок menu
 
-(here, have a link: [http://localhost:8080/desktop.bundles/index/index.html](http://localhost:8080/desktop.bundles/index/index.html))
+Здесь нам нужно сделать двухуровневое меню. Создаем блок menu, который будет распознавать клики по группам и элементам. Соответственно, нам нужны такие элементы:
+- item — элемент меню;
+- content — контейнер для элементов;
+- title — заголовок группы.
 
----
+Вкладывая один блок меню в другой, можно добиться необходимой иерархичности.
 
-**That's it, it's that simple. Congratulations, your BEM project is already underway!**
+## Блок i-geo-controller
 
----
+Блок-контроллер, который подписывается на события блоков menu — «menuItemClick» и «menuGroupClick», реагирует на них и совершает определенные действия на карте. В нашем примере у него следующие задачи:
+- при клике на метку нужно переместить ее в центр карты и открыть балун;
+- при клике на группу нужно либо скрыть ее, либо показать, если до этого она была скрыта.
+Кроме того, чтобы правильно взаимодействовать с картой, блок-контроллер должен знать, когда карта готова к тому, чтобы объектами на ней можно было управлять. Для этого блок map у себя будет пробрасывать событие «map-inited», а i-geo-controller — слушать его и запоминать ссылку на экземпляр карты.
+￼
+## Заключение
+Готовый пример можно посмотреть по ссылке: [zloylos.github.com/ymaps-and-bem/](http://zloylos.github.com/ymaps-and-bem/).
 
-### Was that too easy?
-
-Here's the replay... that `make` command will:
-
-1. Install a **local copy** of all required dependencies from [npm](http://npmjs.org/) into the `./node_modules` directory. (specifically: [bem-tools](http://github.com/bem/bem-tools))
-2. Start a local `bem server` on port `8080`.
-
-#### Note:
-
-What do we mean by "a **local copy** of all required dependencies"?
-
-Well, when you run the `make` command for the first time, we install all of the required dependencies ([bem-tools](http://github.com/bem/bem-tools))
-to the `./node_modules` directory within the **local project directory**.  This is *not* the same thing as
-[installing bem-tools locally to your environment](http://bem.info/tools/bem/installation/) - which, if you haven't
-done already, we strongly suggest that you do.  This is by far the easiest, quickest way to use
-[bem-tools](http://github.com/bem/bem-tools) in [a more beautiful way](#an-easier-more-beautiful-way).
-
----
-
-## Usage:
-
-### Start the Server:
-
-    › make
-
-Each subsiquent time you wish to start the server you may simply run the `make` command in your terminal.
-
-Alternatively you may opt to use the following command:
-
-    › ./node_modules/.bin/bem server
-
-This is the ugly way to run the `bem server` command.  If you think it's ugly too and wish for [a better way](#an-easier-more-beautiful-way) keep reading...
-
-### An Easier, More Beautiful Way:
-
-Once you have either (a) [fixed your PATH environment variable](#fix-your-path-environment-variable), or (b) 
-[properly installed bem-tools to your local environment](http://bem.info/tools/bem/installation/).
-You may now, more elegantly, start your `bem server` by running:
-
-    › bem server
-
----
-
-### Stopping the Server:
-
-Stopping the server is also easy:
-
-    [ctrl] + [c]
-
-Pressing `[ctrl] + [c]` while the terminal is your active window will stop the server.
-
----
-
-### Fix your PATH environment variable:
-
-For a more permanent way to "easily" use the *local-to-this-project's* installation of
-[bem-tools](http://github.com/bem/bem-tools) all you must do is ensure that the **path** to the `bem` executable
-(`./node_modules/.bin`) is included in your `PATH` environment variable.
-
-    > export PATH=./node_modules/.bin:$PATH
-
-Optionally you may also add `export PATH=PATH_TO_PROJECT_DIRECTORY/node_modules/.bin:$PATH` to your `.profile`
-(obviously replacing `PATH_TO_PROJECT_DIRECTORY` with the actual path to your project)
-
----
-
-[BEM](http://bem.info) is an abbreviation for Block-Element-Modifier.  [BEM](http://bem.info) is a way to write code which is easy to support and develop.
-
-For more information about the BEM metodology check out [http://bem.info](http://bem.info/).
+Возможно, с использованием методологии БЭМ пример и получился более громоздким, чем без неё, но зато у нас есть более структурированный и удобный для поддержки код. А главное, его довольно просто масштабировать и расширять, что без использования методологии вызвало бы значительные проблемы и чаще всего привело бы к полному переписыванию кода.
+￼
