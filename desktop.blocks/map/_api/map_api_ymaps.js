@@ -1,7 +1,6 @@
 BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
-
-    onSetMod : {
-        'js' : function () {
+    onSetMod: {
+        'js': function () {
             this.loadMapsApi();
         }
     },
@@ -10,8 +9,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
     mapsPackages: [
         [
             'package.full'
-
-        ],
+        ]
     ],
 
     /** 
@@ -20,8 +18,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
     loadMapsApi: function () {
         if (!window.ymaps) {
             var apiScript = document.createElement('script'),
-                apiCallback = 'ymapsloaded', 
-                _this = this;
+                apiCallback = 'ymapsloaded';
 
             window[apiCallback] = $.proxy(function () {
                 this.onAPILoaded();
@@ -92,7 +89,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             this.map.setBounds(this.map.geoObjects.getBounds());
         }
 
-        // Добавляем контроллы на карту
+        // Добавляем контроллы на карту.
         this.map.controls
             .add('zoomControl')
             .add('scaleLine')
@@ -100,7 +97,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             .add('mapTools');
 
         // Блок поделится информацией о том, что он инициализировал карту. 
-        // В данных даем ссылку на карту. 
+        // В данных передаём ссылку на экземпляр карты. 
         this.trigger('map-inited', { 
             map: this.map 
         });
