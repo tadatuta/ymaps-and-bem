@@ -37,12 +37,12 @@
                                     collection: true 
                                 },  
                                 options: {
-                                    preset: 'twirl#orangeIcon',     
+                                    preset: 'twirl#orangeIcon'   
                                 },
                                 data: [ 
                                     { coords: [50.426472, 30.563022], properties: { id: 'group-1-1', balloonContent: 'Бистро «Михалыч»' } },
-                                    { coords: [50.45351, 30.516489], properties: { id: 'group-1-2', balloonContent: 'Кафе «Where I am?»' } },
-                                    { coords: [50.454433, 30.529874], properties: { id: 'group-1-3', balloonContent: 'Ресторан «Жемчужина»' } },
+                                    { coords: [50.45351, 30.516489],  properties: { id: 'group-1-2', balloonContent: 'Кафе «Where I am?»' } },
+                                    { coords: [50.454433, 30.529874], properties: { id: 'group-1-3', balloonContent: 'Ресторан «Жемчужина»' } }
                                 ]
                             },
                             {
@@ -53,12 +53,12 @@
                                     collection: true
                                 },
                                 options: {
-                                    preset: 'twirl#redIcon',
+                                    preset: 'twirl#redIcon'
                                 },
                                 data: [
-                                    { coords: [50.50955, 30.60791], properties: { id: 'group-2-1', balloonContent: 'Cалон красоты «Роксана»' } },
+                                    { coords: [50.50955, 30.60791],   properties: { id: 'group-2-1', balloonContent: 'Cалон красоты «Роксана»' } },
                                     { coords: [50.429083, 30.521708], properties: { id: 'group-2-2', balloonContent: 'Салон красоты «Фьюче»' } },
-                                    { coords: [50.450843, 30.498271], properties: { id: 'group-2-3', balloonContent: 'Салон красоты «Багира»' } },
+                                    { coords: [50.450843, 30.498271], properties: { id: 'group-2-3', balloonContent: 'Салон красоты «Багира»' } }
                                 ]
                             },
                             {
@@ -69,7 +69,7 @@
                                     collection: true
                                 },
                                 options: {
-                                    preset: 'twirl#greenIcon',
+                                    preset: 'twirl#greenIcon'
                                 },
                                 data: [
                                     { coords: [50.443334, 30.520163], properties: { id: 'group-3-1', balloonContent: 'Парк аттракционов «Лёлик и Болик»' } },
@@ -156,7 +156,7 @@
                                     content: [
                                         {
                                             elem: 'title',
-                                            content: "Отдых и развлечения"
+                                            content: 'Отдых и развлечения'
                                         },
                                         {
                                             elem: 'content',
