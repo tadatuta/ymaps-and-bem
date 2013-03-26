@@ -8,17 +8,14 @@ BEM.DOM.decl('menu', {
         //Будем реагировать на изменение состояния элемента item
         'item': {
             // когда у него будет меняться модификатор state,
-            'state': {
-                // а точнее принимать значение  active
-                'active': function (elem, modName, modVal) {
-                    // Когда мы получили состояние объекта, нам нужно оповестить другие блоки о том, что 
-                    // произошло. Для этого мы вызываем trigger и говорим, что произошло menuItemClick, 
-                    // заодно передаём важные параметры: элемент и его идентификатор метки. 
-                    this.trigger('menuItemClick', {
-                        domElem : elem,
-                        group: elem.data('group')
-                    });
-                }
+            'state': function (elem, modName, modVal) {
+                // Когда мы получили состояние объекта, нам нужно оповестить другие блоки о том, что 
+                // произошло. Для этого мы вызываем trigger и говорим, что произошло menuItemClick, 
+                // заодно передаём важные параметры: элемент и его идентификатор метки. 
+                this.trigger('menuItemClick', {
+                    domElem : elem,
+                    group: elem.data('group')
+                });
             }
         },
         // и элемента content
@@ -48,7 +45,7 @@ BEM.DOM.decl('menu', {
         // Сворачиваем группу.
         groupEl.slideToggle();
         this.toggleMod(groupEl, 'state', 'fold');
-        // Выделяем заголовок группы
+        // Выделяем заголовок группы.
         this.toggleMod(el, 'state', 'fold');
     }
 }, {
@@ -65,8 +62,8 @@ BEM.DOM.decl('menu', {
         this.on('menuItemClick', function (e, data) {
             // Педалька.
             // Почему-то не срабатывает delMod.
-            var activeState = this.buildSelector('item', 'state', 'active');
-            this.lastSelected && this.lastSelected.removeClass(activeState.substr(1));
+            var activeState = this.buildSelector('item', 'state', 'active').substr(1);
+            this.lastSelected && this.lastSelected.removeClass(activeState);
             this.lastSelected = data.domElem;
         });
     }

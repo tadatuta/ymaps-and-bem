@@ -75,7 +75,7 @@ BEM.DOM.decl('i-geo-controller', {
                         }
                         else {
                             this.map.panTo(placemark.geometry.getCoordinates(), {
-                                delay: 150,
+                                delay: 0,
                                 callback: function () {
                                     placemark.balloon.open();
                                 }
