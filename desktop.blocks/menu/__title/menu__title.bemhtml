@@ -1,3 +1,0 @@
-block menu, elem title {
-    tag: 'span'
-}

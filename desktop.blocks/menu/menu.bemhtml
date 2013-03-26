@@ -1,4 +1,0 @@
-block menu {
-    js: true
-    attrs: { 'data-group': this.ctx.placemarksGroupId }
-}
