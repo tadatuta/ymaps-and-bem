@@ -12,5 +12,5 @@
 /*borschik:include:../../bem-bl/blocks-common/i-ecma/__string/i-ecma__string.js*/;
 /*borschik:include:../../bem-bl/blocks-common/i-bem/__dom/_init/i-bem__dom_init_auto.js*/;
 /*borschik:include:../../desktop.blocks/menu/menu.js*/;
-/*borschik:include:../../desktop.blocks/i-geo/i-geo.js*/;
+/*borschik:include:../../desktop.blocks/i-geo-controller/i-geo-controller.js*/;
 /*borschik:include:../../desktop.blocks/map/_api/map_api_ymaps.js*/;

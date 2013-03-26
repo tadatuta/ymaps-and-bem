@@ -3269,12 +3269,12 @@ BEM.DOM.decl('menu', {
                 this.trigger('menuGroupClick', {
                     domElem : elem,
                     group: elem.parent().data('group'),
-                });        
+                });
             }
         }
     },
 
-    onTriggerElemClick: function (e) { 
+    onTriggerElemClick: function (e) {
         e.preventDefault();
         var el = e.data.domElem;
         // потом точечно включим у того, по которому нажали.
@@ -3289,7 +3289,7 @@ BEM.DOM.decl('menu', {
 
         // Сворачиваем группу.
         groupEl.slideToggle();
-        this.toggleMod(groupEl, 'state', 'fold')
+        this.toggleMod(groupEl, 'state', 'fold');
         // Выделяем заголовок группы
         this.toggleMod(el, 'state', 'fold');
     }
@@ -3305,9 +3305,10 @@ BEM.DOM.decl('menu', {
         });
 
         this.on('menuItemClick', function (e, data) {
-            // Педалька. 
+            // Педалька.
             // Почему-то не срабатывает delMod.
-            this.lastSelected && this.lastSelected.removeClass(this.buildSelector('item', 'state', 'active'));
+            var activeState = this.buildSelector('item', 'state', 'active');
+            this.lastSelected && this.lastSelected.removeClass(activeState.substr(1));
             this.lastSelected = data.domElem;
         });
     }
@@ -3315,8 +3316,8 @@ BEM.DOM.decl('menu', {
 
 /* ../../desktop.blocks/menu/menu.js end */
 ;
-/* ../../desktop.blocks/i-geo/i-geo.js begin */
-BEM.DOM.decl('i-geo', {
+/* ../../desktop.blocks/i-geo-controller/i-geo-controller.js begin */
+BEM.DOM.decl('i-geo-controller', {
     onSetMod : {
         'js' : function () {
             // Слушаем состояние карты (нужно сделать надстройки).
@@ -3328,7 +3329,8 @@ BEM.DOM.decl('i-geo', {
                 block
                     .on('menuItemClick', this.onMenuItemClick, this)
                     .on('menuGroupClick', this.onMenuGroupClick, this);
-            }, this)
+            }, this);
+
         }
     },
 
@@ -3360,7 +3362,7 @@ BEM.DOM.decl('i-geo', {
             if (group.properties.get('collection') && group.properties.get('id') === id) {
                 this._hidden.add(group);
                 return;
-            }        
+            }
         }
 
         // Если мы сюда попали, значит коллекция уже удалена и надо искать в удаленных.
@@ -3373,9 +3375,9 @@ BEM.DOM.decl('i-geo', {
         }
     },
 
-    /** 
+    /**
      * Поиск нужной метки и открытие/закрыте её балуна.
-     * @param {String} id Идентификатор метки 
+     * @param {String} id Идентификатор метки.
      */
     itemToggle: function (id) {
         var it = this.map.geoObjects.getIterator(),
@@ -3406,7 +3408,7 @@ BEM.DOM.decl('i-geo', {
     }
 });
 
-/* ../../desktop.blocks/i-geo/i-geo.js end */
+/* ../../desktop.blocks/i-geo-controller/i-geo-controller.js end */
 ;
 /* ../../desktop.blocks/map/_api/map_api_ymaps.js begin */
 BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {

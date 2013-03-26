@@ -6,7 +6,7 @@ exports.blocks = [
         "name": "container"
     },
     {
-        "name": "i-geo",
+        "name": "i-geo-controller",
         "elems": [
             {
                 "name": "map"

@@ -91,14 +91,14 @@ exports.deps = [
         "block": "map"
     },
     {
-        "block": "i-geo"
+        "block": "i-geo-controller"
     },
     {
-        "block": "i-geo",
+        "block": "i-geo-controller",
         "elem": "map"
     },
     {
-        "block": "i-geo",
+        "block": "i-geo-controller",
         "elem": "menu"
     },
     {
