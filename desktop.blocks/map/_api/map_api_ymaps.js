@@ -8,15 +8,10 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
 
     // Описываем модули, которыре будем загружать.
     mapsPackages: [
-        // Первый этап загрузки.
         [
-            'package.map'
+            'package.full'
 
         ],
-        // Второй этап загрузки.
-        [   
-            'package.standard'
-        ]
     ],
 
     /** 
@@ -51,13 +46,6 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
     onAPILoaded: function () {
         // Запускаем инициализацию карты.
         this.initMap();
-        // И говорим, чтобы API подгрузило вторую часть описаных нами пакетов. 
-        // Это очень удобно для слабого интернета, так как карта покажется раньше, 
-        // а остальное мы можем дорисовать чуть позже — когда загрузятся нужные пакеты. 
-        ymaps.load(this.mapsPackages[1].join(','), function () {
-            // Когда пакеты подгрузятся, выполним последние шаги. 
-            this.continueInit();
-        }, this);
     },
 
     /** 
@@ -73,17 +61,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             zoom: zoom,
             behaviors: ['drag', 'dblClickZoom', 'scrollZoom']
         });
-    },
-
-    /**
-     * Второй этап загрузки (на выбор). 
-     */
-    continueInit: function () {
-        // Так как сначала мы загрузили чистую карту почти без модулей, 
-        // нужно ее пересобрать с новыми модулями. 
-        this.map.destroy()
-        this.initMap();   
-
+        
         // Если есть метки, то добавляем метки на карту. 
         if (this.params.geoObjects && this.params.geoObjects.length > 0) {
             this.params.geoObjects.forEach(function (item) {
@@ -123,7 +101,9 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
 
         // Блок поделится информацией о том, что он инициализировал карту. 
         // В данных даем ссылку на карту. 
-        this.trigger('map-inited', { map: this.map });
+        this.trigger('map-inited', { 
+            map: this.map 
+        });
     },
 
     /** 
