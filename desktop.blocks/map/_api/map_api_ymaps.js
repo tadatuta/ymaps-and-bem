@@ -62,21 +62,21 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
         // Если есть метки, то добавляем метки на карту. 
         if (this.params.geoObjects && this.params.geoObjects.length > 0) {
             this.params.geoObjects.forEach(function (item) {
-                // Проверяем, является ли элемент коллекцией.
+                // Проверяем, является ли элемент коллекцией / группой.
                 var geoObject;
                 if (item.collection) {
                     geoObject = new ymaps.GeoObjectArray({ 
                         properties: item.properties 
-                    }, { 
-                        preset: item.preset 
-                    });
+                    }, item.options);
 
                     // Теперь добавим элементы, описанные в bemjson в коллецию.
                     item.data.forEach(function (placemark) {
-                        geoObject.add(new ymaps.Placemark(placemark.coords, placemark.options));
+                        placemark.options = placemark.options || {};
+                        geoObject.add(new ymaps.Placemark(placemark.coords, placemark.properties, placemark.options));
                     }, this);
                 } else {
-                    geoObject = new ymaps.Placemark(item.coords, item.options);
+                    item.options = item.options || {};
+                    geoObject = new ymaps.Placemark(item.coords, item.properties, item.options);
                 }
                 
                 // После можно добавлять географический объект на карту.
@@ -101,12 +101,5 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
         this.trigger('map-inited', { 
             map: this.map 
         });
-    },
-
-    /** 
-     * Получение ссылки на карту. 
-     */
-    getMap: function () {
-        return this.map
     }
 });
