@@ -1,0 +1,8 @@
+@import url(../../desktop.blocks/container/container.css);
+@import url(../../desktop.blocks/menu/menu.css);
+@import url(../../desktop.blocks/map/map.css);
+@import url(../../desktop.blocks/sidebar/sidebar.css);
+@import url(../../desktop.blocks/menu/__title/menu__title.css);
+@import url(../../desktop.blocks/menu/__title/_state/menu__title_state_fold.css);
+@import url(../../desktop.blocks/menu/__item/menu__item.css);
+@import url(../../desktop.blocks/menu/__item/_state/menu__item_state_active.css);
