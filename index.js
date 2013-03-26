@@ -3250,17 +3250,14 @@ BEM.DOM.decl('menu', {
         //Будем реагировать на изменение состояния элемента item
         'item': {
             // когда у него будет меняться модификатор state,
-            'state': {
-                // а точнее принимать значение  active
-                'active': function (elem, modName, modVal) {
-                    // Когда мы получили состояние объекта, нам нужно оповестить другие блоки о том, что 
-                    // произошло. Для этого мы вызываем trigger и говорим, что произошло menuItemClick, 
-                    // заодно передаём важные параметры: элемент и его идентификатор метки. 
-                    this.trigger('menuItemClick', {
-                        domElem : elem,
-                        group: elem.data('group')
-                    });
-                }
+            'state': function (elem, modName, modVal) {
+                // Когда мы получили состояние объекта, нам нужно оповестить другие блоки о том, что 
+                // произошло. Для этого мы вызываем trigger и говорим, что произошло menuItemClick, 
+                // заодно передаём важные параметры: элемент и его идентификатор метки. 
+                this.trigger('menuItemClick', {
+                    domElem : elem,
+                    group: elem.data('group')
+                });
             }
         },
         // и элемента content
@@ -3290,7 +3287,7 @@ BEM.DOM.decl('menu', {
         // Сворачиваем группу.
         groupEl.slideToggle();
         this.toggleMod(groupEl, 'state', 'fold');
-        // Выделяем заголовок группы
+        // Выделяем заголовок группы.
         this.toggleMod(el, 'state', 'fold');
     }
 }, {
@@ -3307,8 +3304,8 @@ BEM.DOM.decl('menu', {
         this.on('menuItemClick', function (e, data) {
             // Педалька.
             // Почему-то не срабатывает delMod.
-            var activeState = this.buildSelector('item', 'state', 'active');
-            this.lastSelected && this.lastSelected.removeClass(activeState.substr(1));
+            var activeState = this.buildSelector('item', 'state', 'active').substr(1);
+            this.lastSelected && this.lastSelected.removeClass(activeState);
             this.lastSelected = data.domElem;
         });
     }
@@ -3394,7 +3391,7 @@ BEM.DOM.decl('i-geo-controller', {
                         }
                         else {
                             this.map.panTo(placemark.geometry.getCoordinates(), {
-                                delay: 150,
+                                delay: 0,
                                 callback: function () {
                                     placemark.balloon.open();
                                 }
@@ -3412,23 +3409,16 @@ BEM.DOM.decl('i-geo-controller', {
 ;
 /* ../../desktop.blocks/map/_api/map_api_ymaps.js begin */
 BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
-
-    onSetMod : {
-        'js' : function () {
+    onSetMod: {
+        'js': function () {
             this.loadMapsApi();
         }
     },
 
     // Описываем модули, которыре будем загружать.
     mapsPackages: [
-        // Первый этап загрузки.
         [
-            'package.map'
-
-        ],
-        // Второй этап загрузки.
-        [   
-            'package.standard'
+            'package.full'
         ]
     ],
 
@@ -3438,8 +3428,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
     loadMapsApi: function () {
         if (!window.ymaps) {
             var apiScript = document.createElement('script'),
-                apiCallback = 'ymapsloaded', 
-                _this = this;
+                apiCallback = 'ymapsloaded';
 
             window[apiCallback] = $.proxy(function () {
                 this.onAPILoaded();
@@ -3464,13 +3453,6 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
     onAPILoaded: function () {
         // Запускаем инициализацию карты.
         this.initMap();
-        // И говорим, чтобы API подгрузило вторую часть описаных нами пакетов. 
-        // Это очень удобно для слабого интернета, так как карта покажется раньше, 
-        // а остальное мы можем дорисовать чуть позже — когда загрузятся нужные пакеты. 
-        ymaps.load(this.mapsPackages[1].join(','), function () {
-            // Когда пакеты подгрузятся, выполним последние шаги. 
-            this.continueInit();
-        }, this);
     },
 
     /** 
@@ -3486,35 +3468,25 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             zoom: zoom,
             behaviors: ['drag', 'dblClickZoom', 'scrollZoom']
         });
-    },
-
-    /**
-     * Второй этап загрузки (на выбор). 
-     */
-    continueInit: function () {
-        // Так как сначала мы загрузили чистую карту почти без модулей, 
-        // нужно ее пересобрать с новыми модулями. 
-        this.map.destroy()
-        this.initMap();   
-
+        
         // Если есть метки, то добавляем метки на карту. 
         if (this.params.geoObjects && this.params.geoObjects.length > 0) {
             this.params.geoObjects.forEach(function (item) {
-                // Проверяем, является ли элемент коллекцией.
+                // Проверяем, является ли элемент коллекцией / группой.
                 var geoObject;
                 if (item.collection) {
                     geoObject = new ymaps.GeoObjectArray({ 
                         properties: item.properties 
-                    }, { 
-                        preset: item.preset 
-                    });
+                    }, item.options);
 
                     // Теперь добавим элементы, описанные в bemjson в коллецию.
                     item.data.forEach(function (placemark) {
-                        geoObject.add(new ymaps.Placemark(placemark.coords, placemark.options));
+                        placemark.options = placemark.options || {};
+                        geoObject.add(new ymaps.Placemark(placemark.coords, placemark.properties, placemark.options));
                     }, this);
                 } else {
-                    geoObject = new ymaps.Placemark(item.coords, item.options);
+                    item.options = item.options || {};
+                    geoObject = new ymaps.Placemark(item.coords, item.properties, item.options);
                 }
                 
                 // После можно добавлять географический объект на карту.
@@ -3527,7 +3499,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             this.map.setBounds(this.map.geoObjects.getBounds());
         }
 
-        // Добавляем контроллы на карту
+        // Добавляем контроллы на карту.
         this.map.controls
             .add('zoomControl')
             .add('scaleLine')
@@ -3535,15 +3507,10 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             .add('mapTools');
 
         // Блок поделится информацией о том, что он инициализировал карту. 
-        // В данных даем ссылку на карту. 
-        this.trigger('map-inited', { map: this.map });
-    },
-
-    /** 
-     * Получение ссылки на карту. 
-     */
-    getMap: function () {
-        return this.map
+        // В данных передаём ссылку на экземпляр карты. 
+        this.trigger('map-inited', { 
+            map: this.map 
+        });
     }
 });
 /* ../../desktop.blocks/map/_api/map_api_ymaps.js end */
