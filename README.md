@@ -41,7 +41,7 @@
 <img src="http://zloylos.me/other/imgs/ymapsbem/index_bemjson.png" alt="">
 ￼
 
-Более подробно можно посмотреть здесь: [desktop.bundles/index/index.bemjson.js](http://github.com/zloylos/ymaps-and-bem/desktop.bundles/index/index.bemjson.js)
+Более подробно можно посмотреть здесь: [desktop.bundles/index/index.bemjson.js](https://github.com/zloylos/ymaps-and-bem/blob/master/desktop.bundles/index/index.bemjson.js)
 
 ## Блок map
 
