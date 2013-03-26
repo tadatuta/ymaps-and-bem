@@ -27,12 +27,12 @@ BEM.DOM.decl('menu', {
                 this.trigger('menuGroupClick', {
                     domElem : elem,
                     group: elem.parent().data('group'),
-                });        
+                });
             }
         }
     },
 
-    onTriggerElemClick: function (e) { 
+    onTriggerElemClick: function (e) {
         e.preventDefault();
         var el = e.data.domElem;
         // потом точечно включим у того, по которому нажали.
@@ -47,7 +47,7 @@ BEM.DOM.decl('menu', {
 
         // Сворачиваем группу.
         groupEl.slideToggle();
-        this.toggleMod(groupEl, 'state', 'fold')
+        this.toggleMod(groupEl, 'state', 'fold');
         // Выделяем заголовок группы
         this.toggleMod(el, 'state', 'fold');
     }
@@ -63,9 +63,10 @@ BEM.DOM.decl('menu', {
         });
 
         this.on('menuItemClick', function (e, data) {
-            // Педалька. 
+            // Педалька.
             // Почему-то не срабатывает delMod.
-            this.lastSelected && this.lastSelected.removeClass(this.buildSelector('item', 'state', 'active'));
+            var activeState = this.buildSelector('item', 'state', 'active');
+            this.lastSelected && this.lastSelected.removeClass(activeState.substr(1));
             this.lastSelected = data.domElem;
         });
     }

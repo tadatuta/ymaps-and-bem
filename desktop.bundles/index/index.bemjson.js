@@ -1,6 +1,6 @@
 ({
     block: 'b-page',
-    title: 'Карта магазинов группы компаний «Лёлика и Болика»',
+    title: 'Карта объектов компании «Лёлика и Болика»',
     head: [
         { elem: 'css', url: '_index.css', ie: false },
         { block: 'i-jquery', elem: 'core' },
@@ -9,17 +9,17 @@
     content: [
         // Сначала описываем враппер, который будет оборачивать 
         // наши блоки map и sidebar. 
-        // К нему примиксуем i-geo, чтобы можно было без труда 
+        // К нему примиксуем i-geo-controller, чтобы можно было без труда 
         // управлять общением блоков
         {
             block: 'container',
-            mix: [{ block: 'i-geo', js: true }],
+            mix: [{ block: 'i-geo-controller', js: true }],
             content: [
                 {
                     // Блок карты, который автоматически добавляет АПИ Яндекс.Карт. 
                     block: 'map',
                     mods: { 'api': 'ymaps' },
-                    mix: [{ block: 'i-geo', elem: 'map' }],
+                    mix: [{ block: 'i-geo-controller', elem: 'map' }],
                     // Параметры для загрузки АПИ Яндекс.Карт.
                     js: {
                         'lang': 'ru-RU',
@@ -68,7 +68,7 @@
                                 data: [
                                     { coords: [50.443334, 30.520163], options: { id: 'group-3-1', balloonContent: 'Парк аттракционов «Лёлик и Болик»' } },
                                     { coords: [50.446977, 30.505269], options: { id: 'group-3-2', balloonContent: 'Ночной клуб «Палата №6»' } },
-                                    { coords: [50.452512, 30.530889], options: { id: 'group-3-3', balloonContent: 'Ирланский паб' } }
+                                    { coords: [50.452512, 30.530889], options: { id: 'group-3-3', balloonContent: 'Ирландский паб' } }
                                 ]
                             }
                         ],
@@ -82,7 +82,7 @@
                     content: [
                         {
                             block: 'menu',
-                            mix: [{ block: 'i-geo', elem: 'menu' }],
+                            mix: [{ block: 'i-geo-controller', elem: 'menu' }],
                             content: [
                                 { 
                                     block: 'menu',
@@ -168,7 +168,7 @@
                                                 {
                                                     elem: 'item',
                                                     placemarkId: 'group-3-3',
-                                                    content: "Ирланский паб"
+                                                    content: "Ирландский паб"
                                                 }
                                             ]
                                         }
