@@ -53,7 +53,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             zoom = this.params.zoom;
 
         // Инициализация карты
-        this.map = new ymaps.Map(this.domElem[0], {
+        this._map = new ymaps.Map(this.domElem[0], {
             center: center,
             zoom: zoom,
             behaviors: ['drag', 'dblClickZoom', 'scrollZoom']
@@ -80,17 +80,38 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
                 }
                 
                 // После можно добавлять географический объект на карту.
-                this.map.geoObjects.add(geoObject);
+                this._map.geoObjects.add(geoObject);
             }, this);
         }
 
         // Установка bounds по добавленным геообъектам. 
         if (this.params.setupBoundsByGeoObjects) {
-            this.map.setBounds(this.map.geoObjects.getBounds());
+            this._map.setBounds(this._map.geoObjects.getBounds());
+        }
+
+        // Установка слоя с тайлами OSM.
+        if (this.params.setupOSMTiles) {
+            var OSMLayer = function () {
+                var layer = new ymaps.Layer('http://tile.openstreetmap.org/%z/%x/%y.png', {
+                    projection: ymaps.projection.sphericalMercator
+                });
+                layer.getZoomRange = function () {
+                    var promise = new ymaps.util.Promise();
+                    promise.resolve([0, 18]);
+                    return promise;
+                }
+                return layer;
+            };
+            ymaps.layer.storage.add('osm#map', OSMLayer);
+            var osmMapType = new ymaps.MapType('OSM', ['osm#map']);
+            ymaps.mapType.storage.add('OSM', osmMapType);
+
+            this._map.setType('OSM');
+            this._map.copyrights.add('&copy; OpenStreetMap contributors, CC-BY-SA');
         }
 
         // Добавляем контроллы на карту.
-        this.map.controls
+        this._map.controls
             .add('zoomControl')
             .add('scaleLine')
             .add('typeSelector')
@@ -99,7 +120,15 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
         // Блок поделится информацией о том, что он инициализировал карту. 
         // В данных передаём ссылку на экземпляр карты. 
         this.trigger('map-inited', { 
-            map: this.map 
+            map: this._map 
         });
+    },
+
+    /**
+     * Возвращает экземпляр карты. 
+     * @return {Map | Null} Экземпляр карты, либо null, если карта не инстанцирована.  
+     */
+    getMap: function () {
+        return this._map || null;
     }
 });

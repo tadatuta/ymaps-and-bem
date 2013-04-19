@@ -80,7 +80,9 @@
                         ],
                         // Устанавливать ли bounds карты по области, 
                         // охватывающей все геообъекты.
-                        'setupBoundsByGeoObjects': true
+                        'setupBoundsByGeoObjects': true,
+                        // Включить / выключить слой OSM тайлов. 
+                        'setupOSMTiles': false
                     }
                 },
                 {
