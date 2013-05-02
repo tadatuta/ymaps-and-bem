@@ -12,7 +12,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
         ]
     ],
 
-    /** 
+    /**
      * Загрузчик API.
      */
     loadMapsApi: function () {
@@ -34,10 +34,10 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             document.getElementsByTagName('head')[0].appendChild(apiScript);
         } else {
             this.onAPILoaded();
-        }   
-    }, 
+        }
+    },
 
-    /** 
+    /**
      * Выполнится после загрузки API.
      */
     onAPILoaded: function () {
@@ -45,8 +45,8 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
         this.initMap();
     },
 
-    /** 
-     * Инициализация карты. 
+    /**
+     * Инициализация карты.
      */
     initMap: function () {
         var center = this.params.center || [55.76, 37.64],
@@ -58,15 +58,15 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             zoom: zoom,
             behaviors: ['drag', 'dblClickZoom', 'scrollZoom']
         });
-        
-        // Если есть метки, то добавляем метки на карту. 
+
+        // Если есть метки, то добавляем метки на карту.
         if (this.params.geoObjects && this.params.geoObjects.length > 0) {
             this.params.geoObjects.forEach(function (item) {
                 // Проверяем, является ли элемент коллекцией / группой.
                 var geoObject;
                 if (item.collection) {
-                    geoObject = new ymaps.GeoObjectArray({ 
-                        properties: item.properties 
+                    geoObject = new ymaps.GeoObjectArray({
+                        properties: item.properties
                     }, item.options);
 
                     // Теперь добавим элементы, описанные в bemjson в коллецию.
@@ -78,13 +78,13 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
                     item.options = item.options || {};
                     geoObject = new ymaps.Placemark(item.coords, item.properties, item.options);
                 }
-                
+
                 // После можно добавлять географический объект на карту.
                 this._map.geoObjects.add(geoObject);
             }, this);
         }
 
-        // Установка bounds по добавленным геообъектам. 
+        // Установка bounds по добавленным геообъектам.
         if (this.params.setupBoundsByGeoObjects) {
             this._map.setBounds(this._map.geoObjects.getBounds());
         }
@@ -99,7 +99,7 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
                     var promise = new ymaps.util.Promise();
                     promise.resolve([0, 18]);
                     return promise;
-                }
+                };
                 return layer;
             };
             ymaps.layer.storage.add('osm#map', OSMLayer);
@@ -117,16 +117,16 @@ BEM.DOM.decl({ name: "map", modName: "api", modValue: "ymaps" }, {
             .add('typeSelector')
             .add('mapTools');
 
-        // Блок поделится информацией о том, что он инициализировал карту. 
-        // В данных передаём ссылку на экземпляр карты. 
-        this.trigger('map-inited', { 
-            map: this._map 
+        // Блок поделится информацией о том, что он инициализировал карту.
+        // В данных передаём ссылку на экземпляр карты.
+        this.trigger('map-inited', {
+            map: this._map
         });
     },
 
     /**
-     * Возвращает экземпляр карты. 
-     * @return {Map | Null} Экземпляр карты, либо null, если карта не инстанцирована.  
+     * Возвращает экземпляр карты.
+     * @return {Map | Null} Экземпляр карты, либо null, если карта не инстанцирована.
      */
     getMap: function () {
         return this._map || null;

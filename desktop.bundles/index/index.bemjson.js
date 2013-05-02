@@ -7,16 +7,16 @@
         { elem: 'js', url: '_index.js' }
     ],
     content: [
-        // Сначала описываем враппер, который будет оборачивать 
-        // наши блоки map и sidebar. 
-        // К нему примиксуем i-geo-controller, чтобы можно было без труда 
+        // Сначала описываем враппер, который будет оборачивать
+        // наши блоки map и sidebar.
+        // К нему примиксуем i-geo-controller, чтобы можно было без труда
         // управлять общением блоков
         {
             block: 'container',
             mix: [{ block: 'i-geo-controller', js: true }],
             content: [
                 {
-                    // Блок карты, который автоматически добавляет АПИ Яндекс.Карт. 
+                    // Блок карты, который автоматически добавляет АПИ Яндекс.Карт.
                     block: 'map',
                     mods: { 'api': 'ymaps' },
                     mix: [{ block: 'i-geo-controller', elem: 'map' }],
@@ -27,19 +27,19 @@
                         'zoom': 12,
                         // Добавляем геообъекты на карту.
                         'geoObjects': [
-                            { 
+                            {
                                 collection: true,
                                 properties: {
                                     id: 'group-1',
                                     name: 'Рестораны, кафе',
-                                    // Нужно для нашего алгоритма переключения меток, 
+                                    // Нужно для нашего алгоритма переключения меток,
                                     // чтобы не путать с обычными метками, добавленными на карту.
-                                    collection: true 
-                                },  
-                                options: {
-                                    preset: 'twirl#orangeIcon'   
+                                    collection: true
                                 },
-                                data: [ 
+                                options: {
+                                    preset: 'twirl#orangeIcon'
+                                },
+                                data: [
                                     { coords: [50.426472, 30.563022], properties: { id: 'group-1-1', balloonContent: 'Бистро «Михалыч»' } },
                                     { coords: [50.45351, 30.516489],  properties: { id: 'group-1-2', balloonContent: 'Кафе «Where I am?»' } },
                                     { coords: [50.454433, 30.529874], properties: { id: 'group-1-3', balloonContent: 'Ресторан «Жемчужина»' } }
@@ -78,10 +78,10 @@
                                 ]
                             }
                         ],
-                        // Устанавливать ли bounds карты по области, 
+                        // Устанавливать ли bounds карты по области,
                         // охватывающей все геообъекты.
                         'setupBoundsByGeoObjects': true,
-                        // Включить / выключить слой OSM тайлов. 
+                        // Включить / выключить слой OSM тайлов.
                         'setupOSMTiles': false
                     }
                 },
@@ -92,18 +92,18 @@
                             block: 'menu',
                             mix: [{ block: 'i-geo-controller', elem: 'menu' }],
                             content: [
-                                { 
+                                {
                                     block: 'menu',
                                     placemarksGroupId: 'group-1',
                                     content: [
-                                        { 
-                                            elem: 'title', 
-                                            content: 'Рестораны, кафе' 
+                                        {
+                                            elem: 'title',
+                                            content: 'Рестораны, кафе'
                                         },
-                                        { 
-                                            elem: 'content', 
+                                        {
+                                            elem: 'content',
                                             content: [
-                                                { 
+                                                {
                                                     elem: 'item',
                                                     placemarkId: 'group-1-1',
                                                     content: "Бистро «Михалыч»"
@@ -129,7 +129,7 @@
                                         {
                                             elem: 'title',
                                             content: 'Салоны красоты'
-                                        }, 
+                                        },
                                         {
                                             elem: 'content',
                                             content: [
